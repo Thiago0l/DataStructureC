@@ -1,0 +1,82 @@
+#include <stdio.h>
+
+//preencher o array
+void lista(int array[], int tamanho) {
+    printf("Digite %d números inteiros:\n", tamanho);
+    for (int i = 0; i < tamanho; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &array[i]);
+    }
+}
+
+//ordenar o array usando Bubble Sort
+void ordenar(int array[], int tamanho) {
+    for (int i = 0; i < tamanho - 1; i++) {
+        for (int j = 0; j < tamanho - i - 1; j++) {
+            if (array[j] > array[j + 1]) {
+                int temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
+        }
+    }
+}
+
+//imprimir o array
+void printArray(int array[], int tamanho) {
+    printf("Array:\n");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+}
+
+//binária
+int buscaBinaria(int array[], int tamanho, int chave) {
+    int inicio = 0;
+    int fim = tamanho - 1;
+    
+    while (inicio <= fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        
+        if (array[meio] == chave) {
+            return meio; // Elemento encontrado, retorna o índice
+        }
+        if (array[meio] < chave) {
+            inicio = meio + 1; // Procura na metade direita
+        } else {
+            fim = meio - 1; // Procura na metade esquerda
+        }
+    }
+    
+    return -1; // Elemento não encontrado
+}
+
+int main() {
+    int tamanho = 10;
+    int array[tamanho];
+    
+
+    lista(array, tamanho);
+    
+    ordenar(array, tamanho);
+    
+    printf("Array ordenado:\n");
+    printArray(array, tamanho);
+    
+    // Solicitar o valor a ser buscado
+    int chave;
+    printf("Digite o valor a ser buscado: ");
+    scanf("%d", &chave);
+
+    int resultado = buscaBinaria(array, tamanho, chave);
+    
+    //resultado da busca
+    if (resultado != -1) {
+        printf("O valor %d foi encontrado na posição %d.\n", chave, resultado);
+    } else {
+        printf("O valor %d não foi encontrado no array.\n", chave);
+    }
+    
+    return 0;
+}
